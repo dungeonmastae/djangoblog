@@ -1,19 +1,18 @@
 {% extends  "blog/base.html" %}
 {% block content %}
-      {% for post in posts %}
+      <h1 class="mb-3" >Saved Posts</h1>
+      {% for post in new %}
         <article class="media content-section">
           <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}">
           <div class="media-body">
             <div class="article-metadata">
               <a class="mr-2" href="{% url 'user-posts' post.author.username %}">{{ post.author }}</a>
               <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
-              <a class="flex--item s-btn s-btn__muted s-btn__outlined" href="{% url 'favourite_add' post.id %}">save</a>
             </div>
             <h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h2>
             <p class="article-content">{{ post.content }}</p>
           </div>
         </article>
-
       {%endfor%}
       {% if is_paginated %}
         {% if page_obj.has_previous %}
