@@ -21,4 +21,3 @@ Some features of this blogging site are -
   <li>Pillow</li>
  </ul>
 
-

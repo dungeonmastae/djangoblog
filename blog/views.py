@@ -1,9 +1,10 @@
 from django.shortcuts import render,get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
 from .models import Post
+from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView,DetailView,CreateView,UpdateView,DeleteView
 from django.contrib.auth.models import User
-# from django.http import HttpResponse
+from django.http import HttpResponse,HttpResponseRedirect
 
 # Create your views here.
 
@@ -22,6 +23,20 @@ from django.contrib.auth.models import User
 #     }
 #
 # ]
+
+@ login_required
+def favourite_add(request,id):
+    post=get_object_or_404(Post,id=id)
+    if post.favourites.filter(id=request.user.id).exists():
+        post.favourites.remove(request.user)
+    else:
+        post.favourites.add(request.user)
+    return HttpResponseRedirect(request.path_info)
+
+@ login_required
+def favourite_list(request):
+    new = Post.objects.filter(favourites=request.user)
+    return render(request,'blog/fav_post.html',{'new':new})
 
 def home(request):
     context={
@@ -45,6 +60,8 @@ class UserPostListView(ListView):
     def get_queryset(self):
         user = get_object_or_404(User,username=self.kwargs.get('username'))
         return Post.objects.filter(author=user).order_by('-date_posted')
+
+
 
 class PostDetailView(DetailView):
     model = Post
