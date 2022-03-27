@@ -29,7 +29,7 @@ SECRET_KEY = 'x4+h&8c0)826vtx!xb105g$7^m528*$_wfsb7p@4qm%v!%tbn6'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['djangoapparpit.herokuapp.com']
 
 
 # Application definition
