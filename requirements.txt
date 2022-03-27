@@ -1,4 +1,4 @@
 django==3.0.5
 asgiref==3.2.7
 Pillow==3.1.0
-sqlparse==0.4.3
+
